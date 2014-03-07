@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{listings}
+\begin{document}
+
+\section{Clone the ‘master’ branch of the repository that you would like to work on}
+\begin{lstlisting}
+git clone git@github.com:STEMulator/doc.git
+\end{lstlisting}
+
+\section*{Create a task for the desired change}
+\begin{lstlisting}
+task add The task description
+git commit .task -am '<repo_name>-<task#>; Created task for <purpose>'
+git push origin master
+\end{lstlisting}
+
+\section*{Start a task}
+\begin{lstlisting}
+task <task#> start
+git commit .task -am '<repo_name>-<task#>; Starting task'
+git push origin master
+\end{lstlisting}
+
+\section*{Create a new branch for the task}
+\begin{lstlisting}
+git checkout -b <repo_name>-<task#>
+git push -u origin <repo_name>-<task#>
+\end{lstlisting}
+
+\section*{Work on the task}
+\begin{lstlisting}
+git checkout <repo_name>-<task#>
+# … do work on the task and commit often
+git add -A
+git commit -m '<repo_name>-<task#>; <write an informative message that WON'T go into the release notes>'
+git push origin <repo_name>-<task#>
+\end{lstlisting}
+
+\section*{Keep the task progress updated in the ‘master’ branch}
+\begin{lstlisting}
+git checkout master
+task <task#> modify …
+git commit .task -am '<repo_name>-<task#>; Updated task'
+git push origin master
+\end{lstlisting}
+
+\section*{Integrate task branch}
+\begin{lstlisting}
+git checkout master
+git pull
+git merge --squash <repo_name>-<task#>
+git commit -v -m '<repo_name>-<task#>; <detailed commit message>'
+git push origin master
+git push origin :<repo_name>-<task#>
+\end{lstlisting}
+
+\end{document}
